@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb');
 
-const URL = 'mongodb://0.0.0.0:27017/testPDR';
+const URL = 'mongodb://0.0.0.0:27017/testPDRbox';
 
 let dbConnection;
 
@@ -19,4 +19,3 @@ module.exports ={
     },
     getDb: () => dbConnection,
 }
-
