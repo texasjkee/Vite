@@ -31,10 +31,9 @@ export const heroCreated = (hero) => {
   };
 };
 
-export const heroesFiltered = (filters) => {
+export const heroesFiltered = () => {
   return {
-    type: "HERO_FILTERS",
-    payload: filters,
+    type: "HERO_FILTERED",
   };
 };
 

@@ -27,16 +27,13 @@ const HeroesFilters = () => {
             All
           </button>
           <button onClick={handlerClick} className="btn btn-danger">
-            Fire
+    Sith
           </button>
           <button onClick={handlerClick} className="btn btn-primary">
-            Water
-          </button>
-          <button onClick={handlerClick} className="btn btn-success">
-            Wind
+    Jedi
           </button>
           <button onClick={handlerClick} className="btn btn-secondary">
-            Earth
+    Grey Jedi
           </button>
         </div>
       </div>

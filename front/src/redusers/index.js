@@ -9,23 +9,23 @@ const reducer = (state = initialState, action) => {
     case "HEROES_FETCHING":
       return {
         ...state,
-        heroesLoadingStatus: "loading",
+        heroesLoadingStatus: "loading"
       };
     case "HEROES_FETCHED":
       return {
         ...state,
         heroes: action.payload,
-        heroesLoadingStatus: "idle",
+        heroesLoadingStatus: "idle"
       };
     case "HEROES_FETCHING_ERROR":
       return {
         ...state,
-        heroesLoadingStatus: "error",
+        heroesLoadingStatus: "error"
       };
     case "HERO_DELETED":
       return {
         ...state,
-        heroes: action.payload,
+        heroes: action.payload
       };
     case "HERO_CREATED":
       // eslint-disable-next-line
@@ -34,15 +34,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         heroes: newHeroesList
       };
-    case "HERO_FILTERS":
+    case "HERO_FILTERED":
+      // eslint-disable-next-line
+      const heroesSide = state.heroes.map(hero => hero.side);
       return {
         ...state,
-        filters: action.payload,
+        filters: heroesSide
       };
     case "HERO_FILTERS_BY_ELEMENT":
       return {
         ...state,
-        filters: action.payload,
+        filters: action.payload
       };
     default:
       return state;

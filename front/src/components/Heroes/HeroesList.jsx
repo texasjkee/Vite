@@ -1,11 +1,13 @@
 // import { useHttp } from "../../hooks/useHttp";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import  axios  from "axios";
 
 import { heroesFetching, heroesFetched, heroesFetchingError, heroesFiltered } from "../../actions";
+import { BASE_URL } from "../../helpers/URL";
+
 import HeroesListItem from "./HeroListIteam";
 import Spinner from "../Spinner";
-import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
   const { heroes, heroesLoadingStatus } = useSelector((state) => state);
@@ -15,12 +17,10 @@ const HeroesList = () => {
   
   useEffect(() => {
     dispatch(heroesFetching());
-    fetch(`${BASE_URL}heroes`)
-      .then((res) => res.json())
-      .then((data) => {
-        const heroesElements = data.map(hero => hero.element);
-        dispatch(heroesFiltered(heroesElements));
+    axios.get(`${BASE_URL}heroes`)
+      .then(({data}) => {
         dispatch(heroesFetched(data));
+        dispatch(heroesFiltered());
       })
       .catch(() => dispatch(heroesFetchingError()));
     // eslint-disable-next-line
