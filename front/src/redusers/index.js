@@ -22,10 +22,17 @@ const reducer = (state = initialState, action) => {
         ...state,
         heroesLoadingStatus: "error",
       };
-    case "HERO_DELETE":
+    case "HERO_DELETED":
       return {
         ...state,
         heroes: action.payload,
+      };
+    case "HERO_CREATED":
+      // eslint-disable-next-line
+      const newHeroesList = [...state.heroes, action.payload];
+      return {
+        ...state,
+        heroes: newHeroesList
       };
     case "HERO_FILTERS":
       return {

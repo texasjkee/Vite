@@ -1,67 +1,55 @@
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { heroesFetching, heroesFetched, heroesFetchingError, } from "../../actions";
+import  axios  from "axios";
 
-import axios from "axios";
+import { heroCreated } from "../../actions";
+
+import { BASE_URL } from "../../helpers/URL";
 
 const HeroesAddForm = () => {
-  const [reload, setReload] = useState(false);
-  const [formData, setformData] = useState({
-    name: null,
-    description: null,
-    element: null,
-    heroId: 4,
-  });
+  // const [reload, setReload] = useState(false);
+  const [heroName, setHeroName] = useState("");
+  const [heroDesc, setHeroDesc] = useState("");
+  const [heroSide, setHeroSide] = useState("");
 
   const dispatch = useDispatch();
 
-  const BASE_URL = `http://localhost:4000/`;
-
-  const handlerForm = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    const finalForm =  {...formData, heroId: formData.heroId + 1};
-    axios.post(`${BASE_URL}hero/new`, finalForm);
-    setReload(true);
-  };
 
-  useEffect(() => {
-    dispatch(heroesFetching());
+    const newHero = {
+      heroId: '0',
+      name: heroName,
+      description: heroDesc,
+      side: heroSide,
+    };
 
-    fetch(`${BASE_URL}heroes`)
-      .then((res) => res.json())
-      .then((heroes) => dispatch(heroesFetched(heroes)))
-      .catch(() => dispatch(heroesFetchingError()));
+    // fetch(`${BASE_URL}hero/new`, "POST", JSON.stringify(newHero))
+    //   .then((res) => console.log(res, "Sending successful"))
+    //   .then(dispatch(heroCreated(newHero)))
+    //   .catch((err) => console.log(err));
 
-    // eslint-disable-next-line
-  }, [reload]);
+    axios.post(`${BASE_URL}hero/new`, newHero)
+    .then(res => console.log(res.status, res.data)) 
+    .then(dispatch(heroCreated(newHero)))
+    .catch((err) => console.log(err));
 
-  const handlerOnChange = (e) => {
-    const { value, name } = e.target;
-    setformData({
-      ...formData,
-      [name]: value,
-    });
+    setHeroName('');
+    setHeroDesc('');
+    setHeroSide('');
   };
 
   return (
-    <form className="border p-4 shadow-lg rounded" onSubmit={handlerForm}>
+    <form className="border p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label fs-4">
           Name of the new hero
         </label>
         <input
-          onChange={handlerOnChange}
+          onChange={(e) => setHeroName(e.target.value)}
           required
           type="text"
+          value={heroName}
           name="name"
           className="form-control"
           id="name"
@@ -74,8 +62,9 @@ const HeroesAddForm = () => {
           Description
         </label>
         <textarea
-          onChange={handlerOnChange}
+          onChange={(e) => setHeroDesc(e.target.value)}
           required
+          value={heroDesc}
           name="description"
           className="form-control"
           id="text"
@@ -89,17 +78,17 @@ const HeroesAddForm = () => {
           Select hero element
         </label>
         <select
-          onChange={handlerOnChange}
+          onChange={(e) => setHeroSide(e.target.value)}
           required
+          value={heroSide}
           className="form-select"
           id="element"
           name="element"
         >
           <option>What is my side?</option>
-          <option value="fire">Sith</option>
-          <option value="water">Jedi</option>
-          <option value="wind">Wind</option>
-          <option value="earth">Earth</option>
+          <option value="sith">Sith</option>
+          <option value="jedi">Jedi</option>
+          <option value="grey_jedi">Grey Jedi</option>
         </select>
       </div>
 
@@ -111,3 +100,28 @@ const HeroesAddForm = () => {
 };
 
 export default HeroesAddForm;
+
+  //? bad practice
+  // const [formData, setformData] = useState({
+  //   name: null,
+  //   description: null,
+  //   element: null,
+  //   heroId: 4,
+  // });
+  //
+  // const handlerOnChange = (e) => {
+  //   const { value, name } = e.target;
+  //   setformData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+  //
+  // useEffect(() => {
+  //   dispatch(heroesFetching());
+  //   fetch(`${BASE_URL}heroes`)
+  //     .then((res) => res.json())
+  //     .then((heroes) => dispatch(heroesFetched(heroes)))
+  //     .catch(() => dispatch(heroesFetchingError()));
+  //   // eslint-disable-next-line
+  // }, []);

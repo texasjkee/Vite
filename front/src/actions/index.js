@@ -17,14 +17,21 @@ export const heroesFetchingError = () => {
   };
 };
 
-export const heroDelete= (heroes) => {
+export const heroDeleted = (heroes) => {
   return {
-    type: "HERO_DELETE",
+    type: "HERO_DELETED",
     payload: heroes,
   };
 };
 
-export const heroesFilters= (filters) => {
+export const heroCreated = (hero) => {
+  return {
+    type: "HERO_CREATED",
+    payload: hero,
+  };
+};
+
+export const heroesFiltered = (filters) => {
   return {
     type: "HERO_FILTERS",
     payload: filters,
@@ -32,7 +39,6 @@ export const heroesFilters= (filters) => {
 };
 
 export const heroesFiltersByElement = (element) => {
-  console.log(element);
   return {
     type: "HERO_FILTERS_BY_ELEMENT",
     payload: element,

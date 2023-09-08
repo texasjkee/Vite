@@ -1,34 +1,31 @@
 import { useDispatch, useSelector } from "react-redux";
-import { heroDelete } from "../../actions";
+import { heroDeleted } from "../../actions";
 import { useRef } from "react";
 
-const HeroesListItem = ({ name, description, element }) => {
+const HeroesListItem = ({ name, description, side }) => {
   const { heroes} = useSelector((state) => state);
   const dispatch = useDispatch();
   const ref = useRef();
   let elementClassName;
 
-  switch (element) {
-    case "fire":
+  switch (side) {
+    case "sith":
       elementClassName = "bg-danger bg-gradient";
       break;
-    case "water":
+    case "jedi":
       elementClassName = "bg-primary bg-gradient";
       break;
-    case "wind":
-      elementClassName = "bg-success bg-gradient";
-      break;
-    case "earth":
+    case "grey_jedi":
       elementClassName = "bg-secondary bg-gradient";
       break;
     default:
       elementClassName = "bg-warning bg-gradient";
   }
 
-  const handlerDeleteHero = (e) => {
+  const handlerDeleteHero = () => {
     const UI_HERO_NAME = ref.current.textContent;
     const filteredHeroes = heroes.filter((hero) => hero.name !== UI_HERO_NAME);
-    dispatch(heroDelete(filteredHeroes));
+    dispatch(heroDeleted(filteredHeroes));
   };
 
   return (

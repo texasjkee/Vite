@@ -2,9 +2,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroesFilters } from "../../actions";
+import { heroesFetching, heroesFetched, heroesFetchingError, heroesFiltered } from "../../actions";
 import HeroesListItem from "./HeroListIteam";
 import Spinner from "../Spinner";
+import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
   const { heroes, heroesLoadingStatus } = useSelector((state) => state);
@@ -12,15 +13,13 @@ const HeroesList = () => {
   //TODO: check it.
   // const { request } = useHttp();
   
-  const URL = "http://localhost:4000/heroes";
-
   useEffect(() => {
     dispatch(heroesFetching());
-    fetch(URL)
+    fetch(`${BASE_URL}heroes`)
       .then((res) => res.json())
       .then((data) => {
         const heroesElements = data.map(hero => hero.element);
-        dispatch(heroesFilters(heroesElements));
+        dispatch(heroesFiltered(heroesElements));
         dispatch(heroesFetched(data));
       })
       .catch(() => dispatch(heroesFetchingError()));
