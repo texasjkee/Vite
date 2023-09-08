@@ -5,7 +5,7 @@ const heroSchema = Schema({
   // heroId: { type: Number ,  default: 0},
   heroId: { type: String },
   description: { type: String },
-  element: { type: String },
+  side: { type: String, required: true},
 
 }, { timestamps: true });
 
