@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { heroDeleted } from "../../actions";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { heroDeleted } from "../../actions";
 
 const HeroesListItem = ({ name, description, side, image }) => {
-  const { heroes} = useSelector((state) => state);
   const dispatch = useDispatch();
   const ref = useRef();
+
   let elementClassName;
 
   switch (side) {
