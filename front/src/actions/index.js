@@ -33,13 +33,13 @@ export const heroCreated = (hero) => {
 
 export const heroesFiltered = () => {
   return {
-    type: "HERO_FILTERED",
+    type: "HEROES_FILTERED",
   };
 };
 
-export const heroesFiltersByElement = (element) => {
+export const heroesFilteredBySide = (side) => {
   return {
-    type: "HERO_FILTERS_BY_ELEMENT",
-    payload: element,
+    type: "HEROES_FILTERED_BY_SIDE",
+    payload: side,
   };
 };

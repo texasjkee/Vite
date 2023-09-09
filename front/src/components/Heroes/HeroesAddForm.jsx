@@ -3,11 +3,9 @@ import { useDispatch } from "react-redux";
 import  axios  from "axios";
 
 import { heroCreated } from "../../actions";
-
 import { BASE_URL } from "../../helpers/URL";
 
 const HeroesAddForm = () => {
-  // const [reload, setReload] = useState(false);
   const [heroName, setHeroName] = useState("");
   const [heroDesc, setHeroDesc] = useState("");
   const [heroSide, setHeroSide] = useState("");
@@ -75,7 +73,7 @@ const HeroesAddForm = () => {
 
       <div className="mb-3">
         <label htmlFor="element" className="form-label">
-          Select hero element
+          Select hero side
         </label>
         <select
           onChange={(e) => setHeroSide(e.target.value)}
@@ -88,7 +86,7 @@ const HeroesAddForm = () => {
           <option>What is my side?</option>
           <option value="sith">Sith</option>
           <option value="jedi">Jedi</option>
-          <option value="grey_jedi">Grey Jedi</option>
+          <option value="gray_jedi">Gray Jedi</option>
         </select>
       </div>
 

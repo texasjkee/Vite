@@ -1,21 +1,13 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { heroesFiltersByElement } from "../../actions";
+import { heroesFilteredBySide } from "../../actions";
 
 const HeroesFilters = () => {
-  const { filters } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  // dispatch(heroesFilters(heroesElements));
-  // dispatch(heroesFetched(data));
-  const handlerClick = (e) => {
-    const element = e.target.textContent.toLowerCase();
-
-    // if(element === 'all') {
-    //   console.log('all');
-    // }
-    dispatch(heroesFiltersByElement([element]));
-    // console.log(filters);
+  const onClickHandler = (e) => {
+    const side = e.target.value;
+    dispatch(heroesFilteredBySide(side));
   };
 
   return (
@@ -23,17 +15,33 @@ const HeroesFilters = () => {
       <div className="card-body">
         <p className="card-text">Filter heroes by types</p>
         <div className="btn-group">
-          <button onClick={handlerClick} className="btn btn-outline-dark active" >
+          <button
+            value="all"
+            onClick={onClickHandler}
+            className="btn btn-outline-dark active"
+          >
             All
           </button>
-          <button onClick={handlerClick} className="btn btn-danger">
-    Sith
+          <button
+            value="sith"
+            onClick={onClickHandler}
+            className="btn btn-danger"
+          >
+            Sith
           </button>
-          <button onClick={handlerClick} className="btn btn-primary">
-    Jedi
+          <button
+            value="jedi"
+            onClick={onClickHandler}
+            className="btn btn-primary"
+          >
+            Jedi
           </button>
-          <button onClick={handlerClick} className="btn btn-secondary">
-    Grey Jedi
+          <button
+            value="gray_jedi"
+            onClick={onClickHandler}
+            className="btn btn-secondary"
+          >
+            Gray Jedi
           </button>
         </div>
       </div>

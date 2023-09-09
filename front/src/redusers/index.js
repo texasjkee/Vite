@@ -2,6 +2,8 @@ const initialState = {
   heroes: [],
   heroesLoadingStatus: "idle",
   filters: [],
+  filterStatus: "all",
+  heroesFilteredBySide: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -9,43 +11,59 @@ const reducer = (state = initialState, action) => {
     case "HEROES_FETCHING":
       return {
         ...state,
-        heroesLoadingStatus: "loading"
+        heroesLoadingStatus: "loading",
       };
     case "HEROES_FETCHED":
       return {
         ...state,
         heroes: action.payload,
-        heroesLoadingStatus: "idle"
+        heroesFilteredBySide:
+          state.filterStatus === "all"
+            ? action.payload
+            : action.payload.filter((hero) => hero.side === state.filterStatus),
+        heroesLoadingStatus: "idle",
       };
     case "HEROES_FETCHING_ERROR":
       return {
         ...state,
-        heroesLoadingStatus: "error"
+        heroesLoadingStatus: "error",
       };
     case "HERO_DELETED":
+      // eslint-disable-next-line
+      const filteredHeroes = state.heroes.filter(
+        (hero) => hero.name !== action.payload
+      );
       return {
         ...state,
-        heroes: action.payload
+        heroes: filteredHeroes,
+        heroesFilteredBySide: filteredHeroes,
       };
     case "HERO_CREATED":
       // eslint-disable-next-line
       const newHeroesList = [...state.heroes, action.payload];
       return {
         ...state,
-        heroes: newHeroesList
+        heroes: newHeroesList,
+        heroesFilteredBySide:
+          state.filterStatus === "all"
+            ? newHeroesList
+            : newHeroesList.filter((hero) => hero.side === state.filterStatus),
       };
-    case "HERO_FILTERED":
+    case "HEROES_FILTERED":
       // eslint-disable-next-line
-      const heroesSide = state.heroes.map(hero => hero.side);
+      const heroesSide = state.heroes.map((hero) => hero.side);
       return {
         ...state,
-        filters: heroesSide
+        filters: heroesSide,
       };
-    case "HERO_FILTERS_BY_ELEMENT":
-      return {
-        ...state,
-        filters: action.payload
-      };
+    case "HEROES_FILTERED_BY_SIDE":
+        return {
+          ...state,
+          filterStatus: action.payload,
+          heroesFilteredBySide: action.payload === 'all' ?
+            state.heroes :
+            state.heroes.filter((hero) => hero.side === action.payload)
+        };
     default:
       return state;
   }
