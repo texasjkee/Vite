@@ -1,8 +1,9 @@
-import { createStore } from "redux";
-import reducer from "../redusers";
+import { createStore, combineReducers } from "redux";
+import heroes from "../redusers/heroes";
+import filters from "../redusers/filters";
 
 const store = createStore(
-  reducer,
+  combineReducers({ heroes, filters }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

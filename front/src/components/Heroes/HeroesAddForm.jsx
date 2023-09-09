@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import  axios  from "axios";
+import axios from "axios";
 
 import { heroCreated } from "../../actions";
 import { BASE_URL } from "../../helpers/URL";
@@ -16,7 +16,7 @@ const HeroesAddForm = () => {
     e.preventDefault();
 
     const newHero = {
-      heroId: '0',
+      heroId: "0",
       name: heroName,
       description: heroDesc,
       side: heroSide,
@@ -28,13 +28,13 @@ const HeroesAddForm = () => {
     //   .catch((err) => console.log(err));
 
     axios.post(`${BASE_URL}hero/new`, newHero)
-    .then(res => console.log(res.status, res.data)) 
-    .then(dispatch(heroCreated(newHero)))
-    .catch((err) => console.log(err));
+      .then((res) => console.log(res.status, res.data))
+      .then(dispatch(heroCreated(newHero)))
+      .catch((err) => console.log(err));
 
-    setHeroName('');
-    setHeroDesc('');
-    setHeroSide('');
+    setHeroName("");
+    setHeroDesc("");
+    setHeroSide("");
   };
 
   return (
@@ -99,27 +99,27 @@ const HeroesAddForm = () => {
 
 export default HeroesAddForm;
 
-  //? bad practice
-  // const [formData, setformData] = useState({
-  //   name: null,
-  //   description: null,
-  //   element: null,
-  //   heroId: 4,
-  // });
-  //
-  // const handlerOnChange = (e) => {
-  //   const { value, name } = e.target;
-  //   setformData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-  //
-  // useEffect(() => {
-  //   dispatch(heroesFetching());
-  //   fetch(`${BASE_URL}heroes`)
-  //     .then((res) => res.json())
-  //     .then((heroes) => dispatch(heroesFetched(heroes)))
-  //     .catch(() => dispatch(heroesFetchingError()));
-  //   // eslint-disable-next-line
-  // }, []);
+//? bad practice
+// const [formData, setformData] = useState({
+//   name: null,
+//   description: null,
+//   element: null,
+//   heroId: 4,
+// });
+//
+// const handlerOnChange = (e) => {
+//   const { value, name } = e.target;
+//   setformData({
+//     ...formData,
+//     [name]: value,
+//   });
+// };
+//
+// useEffect(() => {
+//   dispatch(heroesFetching());
+//   fetch(`${BASE_URL}heroes`)
+//     .then((res) => res.json())
+//     .then((heroes) => dispatch(heroesFetched(heroes)))
+//     .catch(() => dispatch(heroesFetchingError()));
+//   // eslint-disable-next-line
+// }, []);

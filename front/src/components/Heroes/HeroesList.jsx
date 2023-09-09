@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { createSelector } from "reselect";
 import axios from "axios";
 
 import HeroesListItem from "./HeroListIteam";
@@ -13,15 +14,26 @@ import { heroesFetching, heroesFetched, heroesFetchingError, } from "../../actio
 import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
-  const heroesFilteredBySide = useSelector(state => {
-    if (state.filterStatus === "all")  {
-      return state.heroes;
-    } else {
-      return state.heroes.filter((hero) => hero.side === state.filterStatus);
-    }
-  });
+
+  //TODO: read how relesect works
+  const filteredHeroesSelector = createSelector(
+    (state) => state.filters.filterStatus,
+    (state) => state.heroes.heroes,
+    (filter, heroes) => filter === "all" ? heroes : heroes.filter(hero => hero.side === filter)
+  );
+
+  //? without relesect
+  // const heroesFilteredBySide = useSelector(state => {
+  //   console.log('render');
+  //   return state.filters.filterStatus === "all" ? 
+  //     state.heroes.heroes : 
+  //     state.heroes.heroes.filter((hero) => hero.side === state.filters.filterStatus);
+  // });
+ 
+  const heroesFilteredBySide = useSelector(filteredHeroesSelector);
   const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
   const dispatch = useDispatch();
+
   //TODO: check it.
   // const { request } = useHttp();
 
