@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { heroDeleted } from "../../actions";
+import { heroDeleted } from "./heroesSlice";
 
 const HeroesListItem = ({ name, description, side, image }) => {
   const dispatch = useDispatch();

@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
 
-import { heroesFilteredBySide } from "../../actions";
+import { heroesFilteredBySide } from "./filtersSlice";
 
 const HeroesFilters = () => {
   const dispatch = useDispatch();
 
   const onClickHandler = (e) => {
     const side = e.target.value;
+    console.log(side);
     dispatch(heroesFilteredBySide(side));
   };
 

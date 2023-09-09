@@ -10,11 +10,10 @@ import Spinner from "../Spinner";
 
 import "./HeroList.scss";
 
-import { heroesFetching, heroesFetched, heroesFetchingError, } from "../../actions";
+import { heroesFetching, heroesFetched, heroesFetchingError, } from "./heroesSlice";
 import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
-
   //TODO: read how relesect works
   const filteredHeroesSelector = createSelector(
     (state) => state.filters.filterStatus,
@@ -31,7 +30,7 @@ const HeroesList = () => {
   // });
  
   const heroesFilteredBySide = useSelector(filteredHeroesSelector);
-  const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
+  const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
   const dispatch = useDispatch();
 
   //TODO: check it.
