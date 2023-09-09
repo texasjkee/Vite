@@ -9,25 +9,25 @@ import Spinner from "../Spinner";
 
 import "./HeroList.scss";
 
-import {
-  heroesFetching,
-  heroesFetched,
-  heroesFetchingError,
-} from "../../actions";
+import { heroesFetching, heroesFetched, heroesFetchingError, } from "../../actions";
 import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
-  const { heroesFilteredBySide, heroesLoadingStatus } = useSelector(
-    (state) => state
-  );
+  const heroesFilteredBySide = useSelector(state => {
+    if (state.filterStatus === "all")  {
+      return state.heroes;
+    } else {
+      return state.heroes.filter((hero) => hero.side === state.filterStatus);
+    }
+  });
+  const heroesLoadingStatus = useSelector(state => state.heroesLoadingStatus);
   const dispatch = useDispatch();
   //TODO: check it.
   // const { request } = useHttp();
 
   useEffect(() => {
     dispatch(heroesFetching());
-    axios
-      .get(`${BASE_URL}heroes`)
+    axios.get(`${BASE_URL}heroes`)
       .then(({ data }) => dispatch(heroesFetched(data)))
       .catch(() => dispatch(heroesFetchingError()));
     // eslint-disable-next-line

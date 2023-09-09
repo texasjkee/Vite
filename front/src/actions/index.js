@@ -31,12 +31,6 @@ export const heroCreated = (hero) => {
   };
 };
 
-export const heroesFiltered = () => {
-  return {
-    type: "HEROES_FILTERED",
-  };
-};
-
 export const heroesFilteredBySide = (side) => {
   return {
     type: "HEROES_FILTERED_BY_SIDE",

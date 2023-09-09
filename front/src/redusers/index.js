@@ -1,7 +1,6 @@
 const initialState = {
   heroes: [],
   heroesLoadingStatus: "idle",
-  filters: [],
   filterStatus: "all",
   heroesFilteredBySide: [],
 };
@@ -30,9 +29,7 @@ const reducer = (state = initialState, action) => {
       };
     case "HERO_DELETED":
       // eslint-disable-next-line
-      const filteredHeroes = state.heroes.filter(
-        (hero) => hero.name !== action.payload
-      );
+      const filteredHeroes = state.heroes.filter((hero) => hero.name !== action.payload);
       return {
         ...state,
         heroes: filteredHeroes,
@@ -49,20 +46,13 @@ const reducer = (state = initialState, action) => {
             ? newHeroesList
             : newHeroesList.filter((hero) => hero.side === state.filterStatus),
       };
-    case "HEROES_FILTERED":
-      // eslint-disable-next-line
-      const heroesSide = state.heroes.map((hero) => hero.side);
-      return {
-        ...state,
-        filters: heroesSide,
-      };
     case "HEROES_FILTERED_BY_SIDE":
         return {
           ...state,
           filterStatus: action.payload,
-          heroesFilteredBySide: action.payload === 'all' ?
-            state.heroes :
-            state.heroes.filter((hero) => hero.side === action.payload)
+          // heroesFilteredBySide: action.payload === 'all' ?
+          //   state.heroes :
+          //   state.heroes.filter((hero) => hero.side === action.payload)
         };
     default:
       return state;
