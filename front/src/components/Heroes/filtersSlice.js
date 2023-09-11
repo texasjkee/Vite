@@ -9,14 +9,11 @@ const filtersSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    heroesFilteredBySide: (state, action) => {
-      console.log(action)
-      filterStatus = action.payload
-    }
+    heroesFilteredBySide: (state, action) => { state.filterStatus = action.payload }
   }
 });
 
 const { actions, reducer } = filtersSlice;
+export const { heroesFilteredBySide } = actions;
 
 export default reducer;
-export const { heroesFilteredBySide } = actions;

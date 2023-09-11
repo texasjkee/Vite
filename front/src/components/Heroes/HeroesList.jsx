@@ -1,17 +1,13 @@
-// import { useHttp } from "../../hooks/useHttp";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createSelector } from "@reduxjs/toolkit";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { createSelector } from "reselect";
-import axios from "axios";
+import { fetchHeroes } from "./heroesSlice";
 
 import HeroesListItem from "./HeroListIteam";
 import Spinner from "../Spinner";
 
 import "./HeroList.scss";
-
-import { heroesFetching, heroesFetched, heroesFetchingError, } from "./heroesSlice";
-import { BASE_URL } from "../../helpers/URL";
 
 const HeroesList = () => {
   //TODO: read how relesect works
@@ -21,27 +17,13 @@ const HeroesList = () => {
     (filter, heroes) => filter === "all" ? heroes : heroes.filter(hero => hero.side === filter)
   );
 
-  //? without relesect
-  // const heroesFilteredBySide = useSelector(state => {
-  //   console.log('render');
-  //   return state.filters.filterStatus === "all" ? 
-  //     state.heroes.heroes : 
-  //     state.heroes.heroes.filter((hero) => hero.side === state.filters.filterStatus);
-  // });
- 
   const heroesFilteredBySide = useSelector(filteredHeroesSelector);
+  // const heroes = useSelector(state => state.heroes.heroes);
   const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
   const dispatch = useDispatch();
 
-  //TODO: check it.
-  // const { request } = useHttp();
-
   useEffect(() => {
-    dispatch(heroesFetching());
-    axios.get(`${BASE_URL}heroes`)
-      .then(({ data }) => dispatch(heroesFetched(data)))
-      .catch(() => dispatch(heroesFetchingError()));
-    // eslint-disable-next-line
+    dispatch(fetchHeroes());
   }, []);
 
   if (heroesLoadingStatus === "loading") {

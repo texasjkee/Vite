@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-
 import { heroesFilteredBySide } from "./filtersSlice";
 
 const HeroesFilters = () => {
