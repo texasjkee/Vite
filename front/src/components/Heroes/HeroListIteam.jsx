@@ -32,11 +32,12 @@ const HeroesListItem = ({ name, description, side, image }) => {
       className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}
     >
       <img
-        // src="http://www.stpaulsteinbach.org/wp-content/uploads/2014/09/unknown-hero.jpg"
-        src={image}
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi1.sndcdn.com%2Favatars-000276617102-fc749h-t500x500.jpg&f=1&nofb=1&ipt=4d5e1233a10cf4729c5836128ca0db927f8b9dbaf340339ed6fb251c3c15566e&ipo=images"
+        // src={image}
         // className="img-fluid w-25 d-inline"
         alt="unknown hero"
-        width="150" height="150"
+        width="150"
+        height="150"
         // style={{ objectFit: "cover" }}
       />
       <div className="card-body">
