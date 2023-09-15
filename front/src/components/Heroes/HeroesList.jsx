@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "@reduxjs/toolkit";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useGetHeroesQuery } from "../../api/apiSlice";
 import { fetchHeroes } from "./heroesSlice";
 
 import HeroesListItem from "./HeroListIteam";
@@ -14,8 +15,18 @@ const HeroesList = () => {
   const filteredHeroesSelector = createSelector(
     (state) => state.filters.filterStatus,
     (state) => state.heroes.heroes,
-    (filter, heroes) => filter === "all" ? heroes : heroes.filter(hero => hero.side === filter)
+    (filter, heroes) =>
+      filter === "all" ? heroes : heroes.filter((hero) => hero.side === filter)
   );
+
+  const {
+    data: heroes,
+    isFetching,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetHeroesQuery();
 
   const heroesFilteredBySide = useSelector(filteredHeroesSelector);
   // const heroes = useSelector(state => state.heroes.heroes);
@@ -26,9 +37,9 @@ const HeroesList = () => {
     dispatch(fetchHeroes());
   }, []);
 
-  if (heroesLoadingStatus === "loading") {
+  if (isLoading) {
     return <Spinner />;
-  } else if (heroesLoadingStatus === "error") {
+  } else if (isError) {
     return <h5 className="text-center mt-5">Loading error</h5>;
   }
 
